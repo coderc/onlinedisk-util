@@ -9,4 +9,5 @@ import (
 func TestOsUtil(t *testing.T) {
 	_, err := GetFileBytes("os.go")
 	assert.NoError(t, err)
+	t.Log("xxxxxx")
 }
