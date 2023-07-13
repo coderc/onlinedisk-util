@@ -26,16 +26,14 @@ func GetConfig() *Config {
 }
 
 // Init 初始化配置
-func (cfg *Config) Init(configFilePath string) error {
+func (cfg *Config) Init(configFilePath string) {
 	bytes, err := utils.GetFileBytes(configFilePath)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	err = yaml.Unmarshal(bytes, cfg)
 	if err != nil {
-		return err
+		panic(err)
 	}
-
-	return nil
 }
