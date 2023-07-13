@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	configStruct "github.com/coderc/onlinedisk-util/config_struct"
+	"github.com/coderc/onlinedisk-util/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -27,7 +27,7 @@ func GetLogger() *Logger {
 	return instance
 }
 
-func (l *Logger) Init(config *configStruct.LoggerConfig) {
+func (l *Logger) Init(config *config.LoggerConfigStruct) {
 	file, err := os.Create(config.Path)
 	if err != nil {
 		msg := fmt.Sprintf(CreateLogFileError, err)
