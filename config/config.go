@@ -8,8 +8,8 @@ import (
 )
 
 type Config struct {
-	ServerConfig `yaml:"server"`
-	LoggerConfig `yaml:"logger"`
+	ServerConfig ServerConfigStruct `yaml:"server"`
+	LoggerConfig LoggerConfigStruct `yaml:"logger"`
 }
 
 var (

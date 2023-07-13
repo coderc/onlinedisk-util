@@ -1,12 +1,12 @@
 package config
 
-// ServerConfig server配置
-type ServerConfig struct {
+// ServerConfigStruct server配置
+type ServerConfigStruct struct {
 	Port int `yaml:"port"`
 }
 
-// LoggerConfig logger配置
-type LoggerConfig struct {
+// LoggerConfigStruct logger配置
+type LoggerConfigStruct struct {
 	Level string `yaml:"level"`
 	Path  string `yaml:"path"`
 }
