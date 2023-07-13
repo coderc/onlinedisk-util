@@ -1,4 +1,4 @@
-package configstruct
+package config
 
 // ServerConfig server配置
 type ServerConfig struct {
