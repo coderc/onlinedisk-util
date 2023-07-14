@@ -7,10 +7,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type Config struct {
-	ServerConfig ServerConfigStruct `yaml:"server"`
-	LoggerConfig LoggerConfigStruct `yaml:"logger"`
-}
 
 var (
 	once sync.Once
