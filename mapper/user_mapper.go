@@ -12,6 +12,9 @@ const (
 )
 
 func InsertUserInfo(uuid int64, username, password string) error {
+	conn := db.GetConn()
+	defer conn.Close()
+
 	_, err := db.GetConn().Exec("insert into table_user (`uuid`, `username`, `password`) values (?, ?, ?)",
 		uuid, username, password)
 	if err != nil {
@@ -23,7 +26,10 @@ func InsertUserInfo(uuid int64, username, password string) error {
 
 // GetUser 判断用户是否存在
 func GetUser(username, password string) (userModel *model.UserModel, err error) {
-	rows, err := db.GetConn().Query("select uuid from table_user where username = ? and password = ? limit 1",
+	conn := db.GetConn()
+	defer conn.Close()
+
+	rows, err := conn.Query("select uuid from table_user where username = ? and password = ? limit 1",
 		username, password)
 	if err != nil {
 		return
