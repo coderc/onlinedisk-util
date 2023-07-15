@@ -4,19 +4,25 @@ import (
 	"crypto/md5"
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha1"
 	"crypto/x509"
 	"encoding/hex"
 	"encoding/pem"
 	"errors"
 )
 
-// EncryptStr 对字符串进行MD5加密
-func EncryptStr(str string) string {
+// EncryptStrMD5 对字符串进行MD5加密
+func EncryptStrMD5(str string) string {
 	if str == "" {
 		return ""
 	}
 	md5Bytes := md5.Sum([]byte(str))
 	return hex.EncodeToString(md5Bytes[:])
+}
+
+func EncryptBytesSHA1(b []byte) string {
+	sha1Bytes := sha1.Sum(b)
+	return hex.EncodeToString(sha1Bytes[:])
 }
 
 var privateKey = []byte(`

@@ -11,7 +11,7 @@ const (
 	errorUserNotExist = "用户不存在"
 )
 
-func InsertUserInfo(uuid int64, username, password string) error {
+func InsertUser(uuid int64, username, password string) error {
 	sql := "insert into table_user (`uuid`, `username`, `password`) values (?, ?, ?)"
 	conn, err := db.GetConn().Prepare(sql)
 	if err != nil {
@@ -27,8 +27,8 @@ func InsertUserInfo(uuid int64, username, password string) error {
 	return nil
 }
 
-// GetUser 判断用户是否存在
-func GetUser(username, password string) (userModel *model.UserModel, err error) {
+// QueryUser 判断用户是否存在
+func QueryUser(username, password string) (userModel *model.UserModel, err error) {
 	sql := "select id,uuid,create_time,update_time from table_user where username = ? and password = ? limit 1"
 	conn, err := db.GetConn().Prepare(sql)
 	if err != nil {

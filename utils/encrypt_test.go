@@ -1,15 +1,18 @@
 package utils
 
 import (
+	"fmt"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestEncrypt(t *testing.T) {
+	fmt.Println(time.Now().Format("2006-01-02-15:04:05.000"))
 	str := "123456"
-	encStr := EncryptStr(str)
-	encStr2 := EncryptStr(str)
+	encStr := EncryptStrMD5(str)
+	encStr2 := EncryptStrMD5(str)
 
 	assert.Equal(t, encStr, encStr2)
 

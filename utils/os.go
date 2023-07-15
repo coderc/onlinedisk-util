@@ -1,6 +1,10 @@
 package utils
 
-import "os"
+import (
+	"fmt"
+	"os"
+	"time"
+)
 
 // GetFileBytes 获取文件字节
 func GetFileBytes(filePath string) ([]byte, error) {
@@ -24,4 +28,9 @@ func GetFileBytes(filePath string) ([]byte, error) {
 	}
 
 	return bytes, nil
+}
+
+func CreateFileName(router string) string {
+	// {router}-{timeStamp}
+	return fmt.Sprintf("%s-%s", router, time.Now().Format("2006-01-02-15:04:05.000"))
 }

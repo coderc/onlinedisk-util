@@ -4,6 +4,8 @@ CREATE TABLE `table_user_file` (
     `user_id` BIGINT(20) NOT NULL,
     `file_id` BIGINT(20) NOT NULL,
     `file_name` VARCHAR(256) NOT NULL COMMENT '文件名 用户设定',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     INDEX `user_id_index` (`user_id`),
     INDEX `file_id_index` (`file_id`),

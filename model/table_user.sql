@@ -9,5 +9,5 @@ CREATE TABLE `table_user` (
     PRIMARY KEY (`id`),
     UNIQUE KEY `username_unique` (`username`),
     UNIQUE KEY `uuid_unique` (`uuid`),
-    INDEX `username_index` (`username`)
+    INDEX `uuid_index` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
