@@ -29,7 +29,8 @@ func InsertUserInfo(uuid int64, username, password string) error {
 
 // GetUser 判断用户是否存在
 func GetUser(username, password string) (userModel *model.UserModel, err error) {
-	conn, err := db.GetConn().Prepare("select uuid from table_user where username = ? and password = ? limit 1")
+	sql := "select id,uuid,create_time,update_time from table_user where username = ? and password = ? limit 1"
+	conn, err := db.GetConn().Prepare(sql)
 	if err != nil {
 		return nil, err
 	}
@@ -42,9 +43,15 @@ func GetUser(username, password string) (userModel *model.UserModel, err error) 
 
 	userModel = &model.UserModel{}
 	if rows.Next() {
-		if err = rows.Scan(&userModel.UUID); err != nil {
+		if err = rows.Scan(
+			&userModel.Id,
+			&userModel.UUID,
+			&userModel.CreateTime,
+			&userModel.UpdateTime); err != nil {
 			return
 		}
+		userModel.Username = username
+		userModel.Password = password
 		return
 	}
 	err = fmt.Errorf(errorUserNotExist)
