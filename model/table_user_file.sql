@@ -10,5 +10,6 @@ CREATE TABLE `table_user_file` (
     INDEX `user_id_index` (`user_id`),
     INDEX `file_id_index` (`file_id`),
     FOREIGN KEY (`user_id`) REFERENCES `table_user` (`uuid`),
-    FOREIGN KEY (`file_id`) REFERENCES `table_file` (`uuid`)
+    FOREIGN KEY (`file_id`) REFERENCES `table_file` (`uuid`),
+    UNIQUE KEY `user_id_file_id_unique` (`user_id`, `file_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
