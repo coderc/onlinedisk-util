@@ -48,3 +48,15 @@ func QueryUserFileByUserId(userId int64) ([]*model.FileModel, error) {
 	}
 	return fileModels, nil
 }
+
+func DeleteUserFile(userId, fileId int64) error {
+	sql := "delete from table_user_file where user_id = ? and file_id = ?"
+	conn, err := db.GetConn().Prepare(sql)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	_, err = conn.Exec(userId, fileId)
+	return err
+}

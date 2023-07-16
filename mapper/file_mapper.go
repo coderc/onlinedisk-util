@@ -1,8 +1,14 @@
 package mapper
 
 import (
+	"fmt"
+
 	"github.com/coderc/onlinedisk-util/db"
 	"github.com/coderc/onlinedisk-util/model"
+)
+
+const (
+	errorFileNotExist = "文件不存在"
 )
 
 func InsertFile(file *model.FileModel) error {
@@ -18,21 +24,20 @@ func InsertFile(file *model.FileModel) error {
 }
 
 // QueryFileByUUID 根据uuid查询文件meta信息
-func QueryFileByUUID(uuids []int64) (map[int64]*model.FileModel, error) {
-	sql := "select id,uuid,sha1,user_id,name,size,path,create_time,update_time from table_file where uuid in (?)"
+func QueryFileByUUID(uuid int64) (*model.FileModel, error) {
+	sql := "select id,uuid,sha1,user_id,name,size,path,create_time,update_time from table_file where uuid = ? limit 1"
 	conn, err := db.GetConn().Prepare(sql)
 	if err != nil {
 		return nil, err
 	}
 	defer conn.Close()
 
-	rows, err := conn.Query(uuids)
+	rows, err := conn.Query(uuid)
 	if err != nil {
 		return nil, err
 	}
 
-	fileModels := make(map[int64]*model.FileModel, len(uuids))
-	for rows.Next() {
+	if rows.Next() {
 		fileModel := &model.FileModel{}
 		if err = rows.Scan(
 			&fileModel.Id,
@@ -44,11 +49,11 @@ func QueryFileByUUID(uuids []int64) (map[int64]*model.FileModel, error) {
 			&fileModel.Path,
 			&fileModel.CreateTime,
 			&fileModel.UpdateTime); err != nil {
-			return fileModels, err
+			return nil, err
 		}
-		fileModels[fileModel.UUID] = fileModel
+		return fileModel, nil
 	}
-	return fileModels, nil
+	return nil, nil
 }
 
 func QueryFileBySHA1(sha1 string) (*model.FileModel, error) {
@@ -79,5 +84,5 @@ func QueryFileBySHA1(sha1 string) (*model.FileModel, error) {
 		}
 		return fileModel, nil
 	}
-	return nil, nil
+	return nil, fmt.Errorf(errorFileNotExist)
 }
