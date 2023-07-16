@@ -27,6 +27,10 @@ func GetLogger() *Logger {
 	return instance
 }
 
+func Zap() *zap.Logger {
+	return GetLogger().zap
+}
+
 func (l *Logger) Init(config *config.LoggerConfigStruct) {
 	file, err := os.Create(config.Path)
 	if err != nil {
@@ -61,34 +65,6 @@ func (l *Logger) Init(config *config.LoggerConfigStruct) {
 		level,       // 日志级别
 	)
 	l.zap = zap.New(core, zap.AddCaller())
-}
-
-func (l *Logger) Debug(msg string, fields ...zap.Field) {
-	l.zap.Debug(msg, fields...)
-}
-
-func (l *Logger) Info(msg string, fields ...zap.Field) {
-	l.zap.Info(msg, fields...)
-}
-
-func (l *Logger) Warn(msg string, fields ...zap.Field) {
-	l.zap.Warn(msg, fields...)
-}
-
-func (l *Logger) Error(msg string, fields ...zap.Field) {
-	l.zap.Error(msg, fields...)
-}
-
-func (l *Logger) Fatal(msg string, fields ...zap.Field) {
-	l.zap.Fatal(msg, fields...)
-}
-
-func (l *Logger) Panic(msg string, fields ...zap.Field) {
-	l.zap.Panic(msg, fields...)
-}
-
-func (l *Logger) Sync() {
-	l.zap.Sync()
 }
 
 const (
