@@ -4,6 +4,7 @@ type Config struct {
 	ServerConfig ServerConfigStruct `yaml:"server"`
 	LoggerConfig LoggerConfigStruct `yaml:"logger"`
 	DBConfig     DBConfigStruct     `yaml:"db"`
+	RedisConfig  RedisConfigStruct  `yaml:"redis"`
 }
 
 // ServerConfigStruct server配置
@@ -33,4 +34,15 @@ type DBConfigStruct struct {
 type RSAConfigStruct struct {
 	PrivateKeyPath string `yaml:"private_key"`
 	PublicKeyPath  string `yaml:"public_key"`
+}
+
+type RedisConfigStruct struct {
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	Password string `yaml:"password"`
+	DB       int    `yaml:"db"`
+
+	MaxIdle     int `yaml:"max_idle"`
+	MaxActive   int `yaml:"max_active"`
+	IdleTimeout int `yaml:"idle_timeout"`
 }

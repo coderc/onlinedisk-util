@@ -28,7 +28,7 @@ func GetSingleton() *MysqlConn {
 }
 
 func GetConn() *sql.DB {
-	return dbConn.conn
+	return GetSingleton().conn
 }
 
 func (m *MysqlConn) Init(config *config.DBConfigStruct) {
