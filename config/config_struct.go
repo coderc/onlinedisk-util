@@ -1,10 +1,11 @@
 package config
 
 type Config struct {
-	ServerConfig ServerConfigStruct `yaml:"server"`
-	LoggerConfig LoggerConfigStruct `yaml:"logger"`
-	DBConfig     DBConfigStruct     `yaml:"db"`
-	RedisConfig  RedisConfigStruct  `yaml:"redis"`
+	ServerConfig      ServerConfigStruct      `yaml:"server"`
+	LoggerConfig      LoggerConfigStruct      `yaml:"logger"`
+	DBConfig          DBConfigStruct          `yaml:"db"`
+	RedisConfig       RedisConfigStruct       `yaml:"redis"`
+	UserServiceConfig UserServiceConfigStruct `yaml:"user_service"`
 }
 
 // ServerConfigStruct server配置
@@ -45,4 +46,9 @@ type RedisConfigStruct struct {
 	MaxIdle     int `yaml:"max_idle"`
 	MaxActive   int `yaml:"max_active"`
 	IdleTimeout int `yaml:"idle_timeout"`
+}
+
+type UserServiceConfigStruct struct {
+	Host string `yaml:"host"`
+	Port int    `yaml:"port"`
 }
