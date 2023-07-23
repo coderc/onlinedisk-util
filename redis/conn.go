@@ -12,6 +12,7 @@ var rdb *redis.Client
 func Init(config *config.RedisConfigStruct) {
 	rdb = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", config.Host, config.Port),
+		Username: config.Username,
 		Password: config.Password,
 		DB:       config.DB,
 	})
