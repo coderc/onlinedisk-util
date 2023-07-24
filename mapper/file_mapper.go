@@ -86,3 +86,15 @@ func QueryFileBySHA1(sha1 string) (*model.FileModel, error) {
 	}
 	return nil, fmt.Errorf(errorFileNotExist)
 }
+
+func UpdateFilePath(fileModel *model.FileModel) error {
+	sql := "update table_file set path = ? where uuid = ?"
+	conn, err := db.GetConn().Prepare(sql)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	_, err = conn.Exec(fileModel.Path, fileModel.UUID)
+	return err
+}
